@@ -2,12 +2,11 @@ package chat.rocket.android_ddp;
 
 import android.support.annotation.Nullable;
 
-import com.squareup.okhttp.OkHttpClient;
-
 import org.json.JSONArray;
 
 import bolts.Task;
 import bolts.TaskCompletionSource;
+import okhttp3.OkHttpClient;
 import rx.Observable;
 
 public class DDPClient {

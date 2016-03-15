@@ -2,12 +2,11 @@ package chat.rocket.android_ddp.rx;
 
 import android.util.Log;
 
-import com.squareup.okhttp.Response;
-import com.squareup.okhttp.ResponseBody;
-import com.squareup.okhttp.ws.WebSocket;
-
 import java.io.IOException;
 
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import okhttp3.ws.WebSocket;
 import okio.Buffer;
 
 public class RxWebSocketCallback {
