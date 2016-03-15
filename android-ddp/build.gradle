@@ -1,5 +1,19 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'maven'
+
+def repo = new File(rootDir, "repository")
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository url: "file://${repo.absolutePath}"
+            pom.version = '0.0.1'
+            pom.groupId = 'chat.rocket'
+            pom.artifactId = 'android-ddp'
+        }
+    }
+}
 
 buildscript {
     repositories {
