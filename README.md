@@ -9,7 +9,7 @@ in build.gradle
 allprojects {
     repositories {
         jcenter()
-        maven { url 'http://rocketchat.github.io/Android-DDP/repository' } // for Android-DDP
+        maven { url 'https://github.com/RocketChat/Android-DDP/raw/master/repository' } // for Android-DDP
     }
 }
 ```
@@ -17,7 +17,7 @@ allprojects {
 in app/build.gradle
 ```
 dependencies {
-    compile 'chat.rocket:android-ddp:0.0.1'
+    compile 'chat.rocket:android-ddp:0.0.2'
 }
 ```
 
