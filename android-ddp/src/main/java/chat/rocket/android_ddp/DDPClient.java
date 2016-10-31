@@ -8,14 +8,15 @@ import bolts.Task;
 import bolts.TaskCompletionSource;
 import okhttp3.OkHttpClient;
 import rx.Observable;
+import timber.log.Timber;
 
 public class DDPClient {
-    static final String TAG = "DDP";
     // reference: https://github.com/eddflrs/meteor-ddp/blob/master/meteor-ddp.js
 
     private final DDPClientImpl mImpl;
     public DDPClient(OkHttpClient client) {
         mImpl = new DDPClientImpl(this, client);
+        Timber.plant(new Timber.DebugTree());
     }
 
     public Task<DDPClientCallback.Connect> connect(String url) {
@@ -48,11 +49,11 @@ public class DDPClient {
         return task.getTask();
     }
 
-    public Observable<Void> getFailureObservable() {
-        return mImpl.getFailureObservable();
-    }
-
     public Observable<DDPSubscription.Event> getSubscriptionCallback() {
         return mImpl.getDDPSubscription();
+    }
+
+    public void close() {
+        mImpl.close(1000, "closed by DDPClient#close()");
     }
 }

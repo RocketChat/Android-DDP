@@ -16,8 +16,6 @@ import rx.Subscriber;
 import rx.observables.ConnectableObservable;
 
 public class RxWebSocket {
-    static final String TAG = "RxWebSocket";
-
     private OkHttpClient mHttpClient;
     private WebSocket mWebSocket;
 
@@ -40,7 +38,7 @@ public class RxWebSocket {
 
                     @Override
                     public void onFailure(IOException e, Response response) {
-                        subscriber.onNext(new RxWebSocketCallback.Failure(mWebSocket, e, response));
+                        subscriber.onError(new RxWebSocketCallback.Failure(mWebSocket, e, response));
                     }
 
                     @Override
@@ -56,6 +54,7 @@ public class RxWebSocket {
                     @Override
                     public void onClose(int code, String reason) {
                         subscriber.onNext(new RxWebSocketCallback.Close(mWebSocket, code, reason));
+                        subscriber.onCompleted();
                     }
                 });
             }
@@ -65,5 +64,9 @@ public class RxWebSocket {
 
     public void sendText(String message) throws IOException {
         mWebSocket.sendMessage(RequestBody.create(WebSocket.TEXT, message));
+    }
+
+    public void close(int code, String reason) throws IOException {
+        mWebSocket.close(code, reason);
     }
 }
