@@ -6,6 +6,7 @@ import org.json.JSONArray;
 
 import bolts.Task;
 import bolts.TaskCompletionSource;
+import chat.rocket.android_ddp.rx.RxWebSocketCallback;
 import okhttp3.OkHttpClient;
 import rx.Observable;
 import timber.log.Timber;
@@ -51,6 +52,10 @@ public class DDPClient {
 
     public Observable<DDPSubscription.Event> getSubscriptionCallback() {
         return mImpl.getDDPSubscription();
+    }
+
+    public Task<RxWebSocketCallback.Close> getOnCloseCallback() {
+        return mImpl.getOnCloseCallback();
     }
 
     public boolean isConnected() {

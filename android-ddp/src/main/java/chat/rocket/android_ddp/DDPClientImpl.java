@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
 
+import bolts.Task;
 import bolts.TaskCompletionSource;
 import chat.rocket.android_ddp.rx.RxWebSocket;
 import chat.rocket.android_ddp.rx.RxWebSocketCallback;
@@ -279,10 +280,30 @@ public class DDPClientImpl {
     }
 
 
-    public void unscribeBaseListeners() {
+    public void unsubscribeBaseListeners() {
         if(mBaseSubscriptions.hasSubscriptions() && !mBaseSubscriptions.isUnsubscribed()) {
             mBaseSubscriptions.unsubscribe();
         }
+    }
+
+    public Task<RxWebSocketCallback.Close> getOnCloseCallback() {
+        TaskCompletionSource<RxWebSocketCallback.Close> task = new TaskCompletionSource<>();
+
+        mObservable.filter(callback -> callback instanceof RxWebSocketCallback.Close)
+                .cast(RxWebSocketCallback.Close.class)
+                .subscribe(close -> {
+                    task.setResult(close);
+                }, err -> {
+                    if (err instanceof Exception) task.setError((Exception) err);
+                    else {
+                        task.setError(new Exception(err));
+                    }
+                });
+
+        return task.getTask().onSuccessTask(_task -> {
+            unsubscribeBaseListeners();
+            return _task;
+        });
     }
 
     private static JSONObject toJson(String s) {
