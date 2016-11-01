@@ -78,6 +78,10 @@ public class DDPClientImpl {
         }
     }
 
+    public boolean isConnected() {
+        return mWebSocket != null && mWebSocket.isConnected();
+    }
+
     public void ping(final TaskCompletionSource<DDPClientCallback.Ping> task, @Nullable final String id){
         CompositeSubscription subscriptions = new CompositeSubscription();
 
@@ -222,12 +226,6 @@ public class DDPClientImpl {
                         }
                     }
                 }, err->{}));
-
-        // just for debugging.
-        mBaseSubscriptions.add(mObservable.subscribe(callback -> {
-            Timber.d("DEBUG< " + callback);
-        }));
-
     }
 
     public Observable<DDPSubscription.Event> getDDPSubscription() {
@@ -311,7 +309,6 @@ public class DDPClientImpl {
             JSONObject origJson = new JSONObject().put("msg", msg);
             String msg2 = (json==null ? origJson : json.create(origJson)).toString();
             mWebSocket.sendText(msg2);
-            Timber.d("DEBUG> "+msg2);
         }
         catch (Exception e) {
             Timber.e(e);

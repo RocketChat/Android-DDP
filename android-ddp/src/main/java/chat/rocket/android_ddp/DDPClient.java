@@ -53,6 +53,10 @@ public class DDPClient {
         return mImpl.getDDPSubscription();
     }
 
+    public boolean isConnected() {
+        return mImpl.isConnected();
+    }
+
     public void close() {
         mImpl.close(1000, "closed by DDPClient#close()");
     }
