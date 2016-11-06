@@ -5,53 +5,53 @@ apply plugin: 'maven'
 def repo = new File(rootDir, "repository")
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository url: "file://${repo.absolutePath}"
-            pom.version = '0.0.5'
-            pom.groupId = 'chat.rocket'
-            pom.artifactId = 'android-ddp'
-        }
+  repositories {
+    mavenDeployer {
+      repository url: "file://${repo.absolutePath}"
+      pom.version = '0.0.5'
+      pom.groupId = 'chat.rocket'
+      pom.artifactId = 'android-ddp'
     }
+  }
 }
 
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:+'
-        classpath 'me.tatarka:gradle-retrolambda:+'
-    }
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:+'
+    classpath 'me.tatarka:gradle-retrolambda:+'
+  }
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+  compileSdkVersion 25
+  buildToolsVersion "25.0.0"
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  defaultConfig {
+    minSdkVersion 16
+    targetSdkVersion 25
+    versionCode 1
+    versionName "0.0.5"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 1
-        versionName "0.0.5"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+  }
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-annotations:+'
-    compile 'com.squareup.okhttp3:okhttp-ws:3.4.1'
-    compile 'io.reactivex:rxjava:1.2.1'
-    compile 'com.parse.bolts:bolts-tasks:1.4.0'
-    compile 'com.jakewharton.timber:timber:4.3.1'
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:support-annotations:+'
+  compile 'com.squareup.okhttp3:okhttp-ws:3.4.1'
+  compile 'io.reactivex:rxjava:1.2.1'
+  compile 'com.parse.bolts:bolts-tasks:1.4.0'
+  compile 'com.jakewharton.timber:timber:4.3.1'
 }
