@@ -8,7 +8,7 @@ uploadArchives {
   repositories {
     mavenDeployer {
       repository url: "file://${repo.absolutePath}"
-      pom.version = '0.0.5'
+      pom.version = '0.0.6'
       pom.groupId = 'chat.rocket'
       pom.artifactId = 'android-ddp'
     }
@@ -37,7 +37,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 25
     versionCode 1
-    versionName "0.0.5"
+    versionName "0.0.6"
   }
   buildTypes {
     release {
