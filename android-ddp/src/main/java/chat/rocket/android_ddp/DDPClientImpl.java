@@ -45,11 +45,6 @@ public class DDPClientImpl {
     }
   }
 
-  public void connect(final TaskCompletionSource<DDPClientCallback.Connect> task,
-      final String url) {
-    connect(task, url, null);
-  }
-
   public void connect(final TaskCompletionSource<DDPClientCallback.Connect> task, final String url,
       String session) {
     try {

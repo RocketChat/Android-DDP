@@ -20,8 +20,12 @@ public class DDPClient {
   }
 
   public Task<DDPClientCallback.Connect> connect(String url) {
+    return connect(url, null);
+  }
+
+  public Task<DDPClientCallback.Connect> connect(String url, String session) {
     TaskCompletionSource<DDPClientCallback.Connect> task = new TaskCompletionSource<>();
-    mImpl.connect(task, url);
+    mImpl.connect(task, url, session);
     return task.getTask();
   }
 
