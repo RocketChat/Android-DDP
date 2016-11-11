@@ -35,9 +35,10 @@ public class DDPClient {
     return task.getTask();
   }
 
-  public Task<DDPClientCallback.RPC> rpc(String method, JSONArray params, String id) {
+  public Task<DDPClientCallback.RPC> rpc(String method, JSONArray params, String id,
+      long timeoutMs) {
     TaskCompletionSource<DDPClientCallback.RPC> task = new TaskCompletionSource<>();
-    mImpl.rpc(task, method, params, id);
+    mImpl.rpc(task, method, params, id, timeoutMs);
     return task.getTask();
   }
 

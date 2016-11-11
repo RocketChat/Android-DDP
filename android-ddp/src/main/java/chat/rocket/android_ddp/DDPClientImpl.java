@@ -8,6 +8,7 @@ import bolts.TaskCompletionSource;
 import chat.rocket.android_ddp.rx.RxWebSocket;
 import chat.rocket.android_ddp.rx.RxWebSocketCallback;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import okhttp3.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -192,13 +193,14 @@ public class DDPClientImpl {
   }
 
   public void rpc(final TaskCompletionSource<DDPClientCallback.RPC> task, String method,
-      JSONArray params, String id) {
+      JSONArray params, String id, long timeoutMs) {
     CompositeSubscription subscriptions = new CompositeSubscription();
 
     subscriptions.add(
         mObservable.filter(callback -> callback instanceof RxWebSocketCallback.Message)
             .map(callback -> ((RxWebSocketCallback.Message) callback).responseBodyString)
             .map(DDPClientImpl::toJson)
+            .timeout(timeoutMs, TimeUnit.MILLISECONDS)
             .subscribe(response -> {
               String msg = extractMsg(response);
               if ("result".equals(msg)) {
@@ -216,6 +218,9 @@ public class DDPClientImpl {
                 }
               }
             }, err -> {
+              if (err instanceof TimeoutException) {
+                task.setError(new DDPClientCallback.RPC.Timeout(mClient));
+              }
             }));
 
     addErrorCallback(subscriptions, task);

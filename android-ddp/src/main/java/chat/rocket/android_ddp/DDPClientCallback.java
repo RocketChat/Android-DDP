@@ -73,5 +73,11 @@ public class DDPClientCallback {
         this.error = error;
       }
     }
+
+    public static class Timeout extends BaseException {
+      public Timeout(DDPClient client) {
+        super(client);
+      }
+    }
   }
 }
