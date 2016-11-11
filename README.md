@@ -17,7 +17,7 @@ allprojects {
 in app/build.gradle
 ```
 dependencies {
-    compile 'chat.rocket:android-ddp:0.0.6'
+    compile 'chat.rocket:android-ddp:0.0.7'
 }
 ```
 
@@ -43,7 +43,7 @@ dependencies {
     });
 
     // next try to login with token  
-    return result.client.rpc("login", new JSONArray().put(token) ,"2");
+    return result.client.rpc("login", new JSONArray().put(token) ,"2", 4000);
     
   }).onSuccess(task -> {
     DDPClientCallback.Connect result = task.getResult();
