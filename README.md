@@ -17,7 +17,7 @@ allprojects {
 in app/build.gradle
 ```
 dependencies {
-    compile 'chat.rocket:android-ddp:0.0.7'
+    compile 'chat.rocket:android-ddp:0.0.8'
 }
 ```
 
