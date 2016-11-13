@@ -55,9 +55,9 @@ public class DDPClientCallback {
 
   public static class RPC extends Base {
     public String id;
-    public JSONObject result;
+    public String result;
 
-    public RPC(DDPClient client, String id, JSONObject result) {
+    public RPC(DDPClient client, String id, String result) {
       super(client);
       this.id = id;
       this.result = result;

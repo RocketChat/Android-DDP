@@ -210,9 +210,8 @@ public class DDPClientImpl {
                     task.setError(new DDPClientCallback.RPC.Error(mClient, id,
                         response.optJSONObject("error")));
                   } else {
-                    task.setResult(new DDPClientCallback.RPC(mClient, id,
-                        response.isNull("result") ? new JSONObject()
-                            : response.optJSONObject("result")));
+                    String result = response.optString("result");
+                    task.setResult(new DDPClientCallback.RPC(mClient, id, result));
                   }
                   subscriptions.unsubscribe();
                 }
